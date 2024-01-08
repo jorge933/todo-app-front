@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
+import { authRoutes } from './domain/auth/auth.routes';
 
 export const routes: Routes = [
   {
     path: 'auth',
-    loadChildren: () =>
-      import('./domain/auth/auth.module').then((module) => module.AuthModule),
+    children: authRoutes,
   },
 ];
