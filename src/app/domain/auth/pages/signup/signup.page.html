@@ -1,10 +1,45 @@
-@if (errors && !form.valid) { @for (error of errors; track $index) {
+@if (httpErrorTypeService.errors() && !form.valid) { @for (error of
+httpErrorTypeService.errors(); track $index) {
 <mat-error>{{ error.message }}</mat-error>
 } }
 
-<ta-generic-auth-form
-  [title]="'Crie Sua Conta'"
-  [form]="form"
-  [fieldOptions]="fieldOptions"
-  (formSubmit)="createUser()"
-/>
+<form [formGroup]="form" (submit)="createUser()">
+  <h1>Crie Sua Conta</h1>
+
+  <mat-form-field controlErrorContainer>
+    <mat-label>Usuário</mat-label>
+    <input matInput placeholder="Ex. johndoe" formControlName="username" />
+  </mat-form-field>
+  <ta-input-errors />
+
+  <mat-form-field controlErrorContainer>
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      placeholder="Ex. johndoe@gmail.com"
+      formControlName="email"
+    />
+  </mat-form-field>
+  <ta-input-errors />
+
+  <mat-form-field controlErrorContainer>
+    <mat-label>Senha</mat-label>
+    <input matInput formControlName="password" />
+  </mat-form-field>
+  <ta-input-errors />
+
+  <mat-form-field controlErrorContainer>
+    <mat-label>Confirme Sua Senha</mat-label>
+    <input matInput formControlName="confirmPassword" />
+  </mat-form-field>
+  <ta-input-errors />
+
+  <button mat-raised-button color="primary" [disabled]="!form.valid">
+    Criar Conta
+  </button>
+
+  <span
+    >Já possui uma conta?
+    <a [routerLink]="['/auth/login']">Entrar</a>
+  </span>
+</form>

@@ -1,4 +1,4 @@
-export interface SignUp {
+export interface RegisterUser {
   email: string;
   username: string;
   password: string;
@@ -20,4 +20,9 @@ export interface HttpSuccessReturn {
   message: string;
   statusCode: number;
   success: boolean;
+}
+
+export interface UserLogin {
+  login: string;
+  password: string;
 }

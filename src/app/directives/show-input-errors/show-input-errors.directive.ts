@@ -1,75 +1,54 @@
-import { Directive, HostBinding, Input } from '@angular/core';
-import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
-import { ERROR_MESSAGES } from '../../constants/error-messages';
+import {
+  ComponentRef,
+  Directive,
+  Inject,
+  Optional,
+  Self,
+  ViewContainerRef,
+} from '@angular/core';
+import { NgControl } from '@angular/forms';
+import { InputErrorsComponent } from '../../components/input-errors/input-errors.component';
+import { FORM_ERRORS } from '../../constants/error-messages';
+import { Error as FormErrors } from '../../domain/auth/interfaces/error-messages.interface';
+import { ControlErrorContainerDirective } from '../control-errors-container/control-errors-container.directive';
 
 @Directive({
-  selector: '[taShowInputErrors]',
+  selector: 'input[matInput]',
   standalone: true,
 })
 export class ShowInputErrorsDirective {
-  @Input('taShowInputErrorsElementControl') elementControl:
-    | AbstractControl
-    | FormGroup;
-  @HostBinding('innerHTML') innerHTML: string;
-  errorsInTemplate: Record<string, true> = {};
+  ref: ComponentRef<InputErrorsComponent>;
+  container: ViewContainerRef;
 
-  constructor() {}
-
-  ngAfterContentInit(): void {
-    this.elementControl.statusChanges.subscribe(() =>
-      this.validate.apply(this)
-    );
+  constructor(
+    @Self() private control: NgControl,
+    @Inject(FORM_ERRORS) private errors: FormErrors,
+    controlErrorContainer: ControlErrorContainerDirective
+  ) {
+    this.container = controlErrorContainer?.viewContainerRef ?? null;
   }
 
-  validate() {
-    const { errors } = this.elementControl;
-    if (!errors) return;
+  ngOnInit(): void {
+    this.control.valueChanges?.subscribe(() => {
+      const { errors } = this.control;
 
-    const errorNames = Object.keys(errors as Object);
+      if (errors) {
+        const firstErrorName = Object.keys(errors)[0];
+        const getErrorMessage = this.errors[firstErrorName];
+        const message = getErrorMessage(errors[firstErrorName]);
 
-    errorNames.forEach((error) => {
-      const showingInTemplate = !!this.errorsInTemplate[error];
-      const errorMessage = ERROR_MESSAGES[error];
-
-      if (!showingInTemplate || errorMessage?.updateConstantly) {
-        this.setErrorMessage(error);
+        this.setError(message);
+      } else if (this.ref) {
+        this.setError(null);
       }
     });
   }
 
-  setErrorMessage(errorName: string) {
-    const error = ERROR_MESSAGES[errorName];
-    const { propertiesToTransform } = error;
-    let { message } = error;
-
-    if (!!propertiesToTransform) {
-      const errors = this.elementControl.errors as ValidationErrors;
-      const props = Object.keys(propertiesToTransform as Object);
-
-      props.forEach((prop) => {
-        const propertyToTransform = propertiesToTransform[prop];
-        const valueToReplace =
-          errors[errorName][propertyToTransform] ?? propertyToTransform;
-
-        const messageTransformed = this.transformMessage(
-          prop,
-          valueToReplace,
-          message
-        );
-
-        message = messageTransformed;
-      });
+  setError(text: string | null) {
+    if (!this.ref) {
+      this.ref = this.container.createComponent(InputErrorsComponent);
     }
 
-    this.setInnerHTML(message);
-  }
-
-  transformMessage(key: string, value: string, message: string) {
-    const regex = new RegExp(`{*${key}*}`, 'g');
-    return message.replace(regex, value);
-  }
-
-  setInnerHTML(html: string) {
-    this.innerHTML = html;
+    this.ref.instance.setMessage(text);
   }
 }

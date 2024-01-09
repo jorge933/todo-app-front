@@ -1,0 +1,29 @@
+@if (httpErrorTypeService.errors() && !form.valid) { @for (error of
+httpErrorTypeService.errors(); track $index) {
+<mat-error>{{ error.message }}</mat-error>
+} }
+
+<form [formGroup]="form" (submit)="login()">
+  <h1>Entre Na Sua Conta</h1>
+
+  <mat-form-field controlErrorContainer>
+    <mat-label>Seu Usuário ou Email</mat-label>
+    <input matInput formControlName="login" />
+  </mat-form-field>
+  <ta-input-errors />
+
+  <mat-form-field controlErrorContainer>
+    <mat-label>Senha</mat-label>
+    <input matInput formControlName="password" />
+  </mat-form-field>
+  <ta-input-errors />
+
+  <button mat-raised-button color="primary" [disabled]="buttonDisabled">
+    Entrar
+  </button>
+
+  <span
+    >Não possui uma conta ainda?
+    <a [routerLink]="['/auth/signup']"> Cadastre-se </a>
+  </span>
+</form>

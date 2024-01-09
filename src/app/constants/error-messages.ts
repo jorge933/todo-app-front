@@ -1,35 +1,20 @@
-import { Errors } from '../domain/auth/interfaces/error-messages';
+import { InjectionToken } from '@angular/core';
+import {
+  Error,
+  FormErrors,
+} from '../domain/auth/interfaces/error-messages.interface';
 
-const lengthErrors = {
-  message: '{errorName} Length: {currentLength}/{validLength}',
-  updateConstantly: true,
-};
-const propsToTransform = {
-  currentLength: 'actualLength',
-  validLength: 'requiredLength',
+export const errors: Error = {
+  minlength: ({ actualLength, requiredLength }: any) =>
+    `Min. Length: ${actualLength}/${requiredLength}`,
+  maxlength: ({ actualLength, requiredLength }: any) =>
+    `Max. Length: ${actualLength}/${requiredLength}`,
+  required: () => 'Campo obrigatório',
+  invalidConfirmPassword: () => 'As senhas precisam ser iguais',
+  email: () => 'Email inválido',
 };
 
-export const ERROR_MESSAGES: Errors = {
-  minlength: {
-    ...lengthErrors,
-    propertiesToTransform: {
-      ...propsToTransform,
-      errorName: 'Min',
-    },
-  },
-  maxlength: {
-    ...lengthErrors,
-    propertiesToTransform: {
-      ...propsToTransform,
-      errorName: 'Max',
-    },
-  },
-  email: {
-    message: 'Email inválido',
-    updateConstantly: false,
-  },
-  invalidConfirmPassword: {
-    message: 'As senhas devem ser iguais',
-    updateConstantly: false,
-  },
-};
+export const FORM_ERRORS: FormErrors = new InjectionToken('FORM_ERRORS', {
+  providedIn: 'root',
+  factory: () => errors,
+});
