@@ -4,9 +4,6 @@
   form {
     @include flex-center("center");
     flex-direction: column;
-  }
-
-  form {
     background-color: white;
     border-radius: 10px;
     padding: 1.5rem 3rem;
@@ -18,6 +15,15 @@
 
     mat-form-field {
       margin: 10px 0;
+    }
+
+    mat-error {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    & > mat-error {
+      margin-bottom: 20px;
     }
   }
 
