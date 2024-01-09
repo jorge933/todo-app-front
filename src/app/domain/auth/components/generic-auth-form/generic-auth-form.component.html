@@ -9,10 +9,17 @@
       placeholder="{{ fieldOptions[controlName].placeholder }}"
       formControlName="{{ controlName }}"
     />
+    <mat-error
+      [taShowInputErrorsElementControl]="form.controls[controlName]"
+      taShowInputErrors
+    />
   </mat-form-field>
+
+  } @if (!form.valid) {
+  <mat-error [taShowInputErrorsElementControl]="form" taShowInputErrors />
   }
 
-  <button mat-raised-button color="primary" [disabled]="form.valid">
+  <button mat-raised-button color="primary" [disabled]="!form.valid">
     {{ title }}
   </button>
 </form>
