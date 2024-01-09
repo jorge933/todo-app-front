@@ -2,7 +2,6 @@ import {
   ComponentRef,
   Directive,
   Inject,
-  Optional,
   Self,
   ViewContainerRef,
 } from '@angular/core';
