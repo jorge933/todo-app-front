@@ -4,6 +4,11 @@ import { tasksRoutes } from './domain/tasks/tasks.routes';
 
 export const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'tasks',
+    pathMatch: 'full',
+  },
+  {
     path: 'auth',
     children: authRoutes,
   },
