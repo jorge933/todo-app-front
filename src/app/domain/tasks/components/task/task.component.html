@@ -5,6 +5,7 @@
     *ngIf="editing === true"
     [formControl]="newNameControl"
     (keyup.enter)="editName()"
+    (keyup.esc)="closeEditingMode()"
   />
 </div>
 
