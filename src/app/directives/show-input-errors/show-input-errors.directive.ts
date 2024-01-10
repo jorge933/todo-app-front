@@ -37,17 +37,15 @@ export class ShowInputErrorsDirective {
         const message = getErrorMessage(errors[firstErrorName]);
 
         this.setError(message);
-      } else if (this.ref) {
-        this.setError(null);
-      }
+      } else if (this.ref) this.setError(null);
     });
   }
 
-  setError(text: string | null) {
+  setError(message: string | null) {
     if (!this.ref) {
       this.ref = this.container.createComponent(InputErrorsComponent);
     }
 
-    this.ref.instance.setMessage(text);
+    this.ref.instance.setMessage(message);
   }
 }
