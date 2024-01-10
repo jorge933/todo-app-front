@@ -5,14 +5,19 @@ httpErrorTypeService.errors(); track $index) {
 <mat-error>{{ error }}</mat-error>
 } }
 
-<form [formGroup]="form" (submit)="createUser()" [class.error]="authFailed">
+<form
+  [formGroup]="form"
+  (submit)="createUser()"
+  [class.error]="authFailed"
+  taShowInputErrorsDirective
+  controlErrorContainer
+>
   <h1>Crie Sua Conta</h1>
 
   <mat-form-field controlErrorContainer>
     <mat-label>Usuário</mat-label>
     <input matInput placeholder="Ex. johndoe" formControlName="username" />
   </mat-form-field>
-  <ta-input-errors />
 
   <mat-form-field controlErrorContainer>
     <mat-label>Email</mat-label>
@@ -22,19 +27,16 @@ httpErrorTypeService.errors(); track $index) {
       formControlName="email"
     />
   </mat-form-field>
-  <ta-input-errors />
 
   <mat-form-field controlErrorContainer>
     <mat-label>Senha</mat-label>
     <input matInput formControlName="password" />
   </mat-form-field>
-  <ta-input-errors />
 
   <mat-form-field controlErrorContainer>
     <mat-label>Confirme Sua Senha</mat-label>
     <input matInput formControlName="confirmPassword" />
   </mat-form-field>
-  <ta-input-errors />
 
   <button mat-raised-button color="primary" [disabled]="buttonDisabled">
     Criar Conta

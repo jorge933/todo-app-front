@@ -29,7 +29,6 @@ import { ControlErrorContainerDirective } from '../../../../directives/control-e
     MatInputModule,
     MatButtonModule,
     RouterLink,
-    InputErrorsComponent,
     ControlErrorContainerDirective,
     ShowInputErrorsDirective,
   ],
