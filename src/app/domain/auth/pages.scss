@@ -60,6 +60,7 @@
 
     mat-form-field {
       width: 100%;
+      margin-top: 20px;
     }
 
     span {
@@ -71,10 +72,11 @@
         color: #551a8b;
       }
     }
-  }
 
-  button {
-    padding: 20px 0;
-    width: 100%;
+    button {
+      width: 100%;
+      padding: 20px 0;
+      margin-top: 20px;
+    }
   }
 }
