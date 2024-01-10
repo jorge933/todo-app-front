@@ -45,7 +45,6 @@ export class LoginPage extends BaseAuthForm {
         login: new FormControl<string>('', [
           Validators.required,
           Validators.minLength(3),
-          Validators.maxLength(10),
         ]) as FormControl<string>,
 
         password: new FormControl<string>('', [
@@ -70,7 +69,9 @@ export class LoginPage extends BaseAuthForm {
   }
 
   login() {
-    if (!this.form.valid) return;
+    const { errors } = this.form;
+    const errorsLength = Object.keys(errors ?? {}).length;
+    if (!!errorsLength) return;
 
     const { login, password } = this.form.controls;
 
