@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,22 +7,21 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { AuthService } from '../../services/auth/auth.service';
+import { RouterLink } from '@angular/router';
+import { ControlErrorContainerDirective } from '../../../../directives/control-errors-container/control-errors-container.directive';
+import { ShowInputErrorsDirective } from '../../../../directives/show-input-errors/show-input-errors.directive';
 import { HttpErrorTypeService } from '../../../../services/http-error-type/http-error-type.service';
 import { EncryptStorageService } from '../../../../services/utils/encrypt-storage.service';
 import { BaseAuthForm } from '../../classes/base-auth';
 import { RegisterUser } from '../../interfaces/auth.service.interface';
+import { AuthService } from '../../services/auth/auth.service';
 import {
   confirmPassword,
   isEmailValidator,
 } from '../../validators/auth.validator';
-import { RouterLink } from '@angular/router';
-import { ShowInputErrorsDirective } from '../../../../directives/show-input-errors/show-input-errors.directive';
-import { InputErrorsComponent } from '../../../../components/input-errors/input-errors.component';
-import { ControlErrorContainerDirective } from '../../../../directives/control-errors-container/control-errors-container.directive';
 
 @Component({
-  selector: 'app-signup',
+  selector: 'ta-signup',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -35,6 +34,7 @@ import { ControlErrorContainerDirective } from '../../../../directives/control-e
   providers: [AuthService],
   templateUrl: './signup.page.html',
   styleUrl: '../../pages.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class SignupPage extends BaseAuthForm {
   constructor(

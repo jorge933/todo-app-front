@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -18,7 +18,7 @@ import { InputErrorsComponent } from '../../../../components/input-errors/input-
 import { ControlErrorContainerDirective } from '../../../../directives/control-errors-container/control-errors-container.directive';
 
 @Component({
-  selector: 'app-signup',
+  selector: 'ta-signup',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -32,6 +32,7 @@ import { ControlErrorContainerDirective } from '../../../../directives/control-e
   providers: [AuthService],
   templateUrl: './login.page.html',
   styleUrl: '../../pages.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class LoginPage extends BaseAuthForm {
   constructor(
