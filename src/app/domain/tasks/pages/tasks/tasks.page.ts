@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { TasksService } from '../services/tasks/tasks.service';
+import { TasksService } from '../../services/tasks/tasks.service';
 import { Task } from '../../interfaces/task';
 import { TaskComponent } from '../../components/task/task.component';
 
@@ -35,5 +35,14 @@ export class TasksPage {
 
   editTaskName(newName: string, id: number) {
     this.tasksService.editTaskName(newName, id).subscribe();
+  }
+
+  deleteTask(id: number) {
+    this.tasksService.deleteTask(id).subscribe({
+      next: () => {
+        const tasks = this.tasks().filter((task) => task._id !== id);
+        this.updateTasks(tasks);
+      },
+    });
   }
 }

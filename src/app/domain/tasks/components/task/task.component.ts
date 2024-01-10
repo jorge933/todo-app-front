@@ -21,6 +21,7 @@ import { Task } from '../../interfaces/task';
 export class TaskComponent {
   @Input({ required: true }) task: Task;
   @Output() editTaskName = new EventEmitter<string>();
+  @Output() deleteTask = new EventEmitter();
   newNameControl = new FormControl<string>('', [
     Validators.required,
     Validators.minLength(3),

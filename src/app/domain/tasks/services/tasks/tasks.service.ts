@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -16,5 +16,9 @@ export class TasksService {
 
   editTaskName(newName: string, id: number) {
     return this.http.post(`${this.baseApi}/tasks/edit`, { newName, id });
+  }
+
+  deleteTask(id: number) {
+    return this.http.delete(`${this.baseApi}/tasks`, { body: { id } });
   }
 }
