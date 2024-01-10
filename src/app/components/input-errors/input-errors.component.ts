@@ -16,9 +16,9 @@ export class InputErrorsComponent {
     if (value !== this._message) {
       this._message = value;
       this._hide = !value;
-      this.cdr.detectChanges();
+      this.changeDetectionRef.detectChanges();
     }
   }
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private changeDetectionRef: ChangeDetectorRef) {}
 }
