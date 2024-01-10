@@ -1,6 +1,5 @@
 import { NgIf } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -45,7 +44,7 @@ export class TaskComponent {
   ngOnInit(): void {
     fromEvent(this.element, 'dblclick').subscribe(() => {
       if (!this.editing) {
-        this.openInEditingMode();
+        this.changeToEditingMode();
       }
     });
 
@@ -60,7 +59,7 @@ export class TaskComponent {
     });
   }
 
-  openInEditingMode() {
+  changeToEditingMode() {
     this.editing = true;
     this.newNameControl.setValue(this.task.name);
   }
