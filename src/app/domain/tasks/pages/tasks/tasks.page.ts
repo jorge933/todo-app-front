@@ -16,6 +16,10 @@ export class TasksPage {
   constructor(private tasksService: TasksService) {}
 
   ngOnInit(): void {
+    this.getTasks();
+  }
+
+  getTasks() {
     this.tasksService.getTasks().subscribe({
       next: (res: { [key: string]: any }) => this.updateTasks(res['data']),
 
