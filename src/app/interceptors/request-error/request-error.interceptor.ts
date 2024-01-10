@@ -3,7 +3,7 @@ import { catchError } from 'rxjs';
 import { inject } from '@angular/core';
 import { HttpErrorTypeService } from '../../services/http-error-type/http-error-type.service';
 
-export const requestInterceptor: HttpInterceptorFn = (req, next) => {
+export const requestErrorInterceptor: HttpInterceptorFn = (req, next) => {
   const httpErrorTypeService = inject(HttpErrorTypeService);
   return next(req).pipe(
     catchError((error) => {
