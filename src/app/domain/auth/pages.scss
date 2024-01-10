@@ -1,10 +1,44 @@
 @import "../../scss/mixins";
 
+@keyframes shakeError {
+  20% {
+    transform: translateX(20px);
+    background-color: rgba(255, 0, 0, 0.733);
+    color: white;
+  }
+  40% {
+    transform: translateX(-20px);
+  }
+  60% {
+    transform: translateX(20px);
+  }
+  80% {
+    transform: translateX(-20px);
+  }
+  100% {
+    background-color: rgba(255, 0, 0, 0.733);
+    transform: translateX(0px);
+    color: white;
+  }
+}
+
+.error {
+  animation: shakeError 0.8s;
+  transition: transform 0.8s;
+  box-shadow: 0px 0px 6px 4px rgba(255, 0, 0, 0.603) !important;
+}
+
 :host {
   background-color: whitesmoke;
   width: 100vw;
   height: 100vh;
   position: relative;
+
+  mat-error {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
 
   &,
   form {
