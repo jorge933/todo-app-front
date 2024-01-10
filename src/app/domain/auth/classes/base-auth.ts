@@ -11,6 +11,7 @@ export class BaseAuthForm {
   form: Form;
   router: Router;
   fields: string[];
+  authFailed = false;
 
   private readonly alreadyBeenRegisteredError = {
     credentialsAlreadyBeenRegistered: true,
@@ -29,8 +30,21 @@ export class BaseAuthForm {
     this.router = inject(Router);
   }
 
+  get buttonDisabled() {
+    const errors = this.form.errors;
+
+    if (!errors) {
+      return !this.form.valid;
+    }
+
+    const errorsLength = Object.keys(errors).length;
+    return !!errorsLength;
+  }
+
   requestError() {
     const initialValues: { [key: string]: string } = {};
+
+    this.authFailed = true;
 
     this.setError(this.alreadyBeenRegisteredError);
 
@@ -95,6 +109,7 @@ export class BaseAuthForm {
     if (valuesAreDifferent) {
       const errors = this.form.errors ?? ({} as ValidationErrors);
       delete errors['credentialsAlreadyBeenRegistered'];
+      this.authFailed = false;
       this.form.setErrors(errors);
     } else this.setError(this.alreadyBeenRegisteredError);
   }

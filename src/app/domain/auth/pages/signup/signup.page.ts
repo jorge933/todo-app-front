@@ -74,7 +74,7 @@ export class SignupPage extends BaseAuthForm {
   }
 
   createUser() {
-    if (!this.form.valid) return;
+    if (!!this.buttonDisabled) return;
 
     const { username, email, password } = this.form.controls;
     const credentials: RegisterUser = {

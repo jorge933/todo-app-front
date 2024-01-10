@@ -57,21 +57,8 @@ export class LoginPage extends BaseAuthForm {
     );
   }
 
-  get buttonDisabled() {
-    const errors = this.form.errors;
-
-    if (!errors) {
-      return !this.form.valid;
-    }
-
-    const errorsLength = Object.keys(errors).length;
-    return !!errorsLength;
-  }
-
   login() {
-    const { errors } = this.form;
-    const errorsLength = Object.keys(errors ?? {}).length;
-    if (!!errorsLength) return;
+    if (!!this.buttonDisabled) return;
 
     const { login, password } = this.form.controls;
 
