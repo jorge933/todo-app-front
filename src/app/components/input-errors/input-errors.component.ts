@@ -12,10 +12,10 @@ export class InputErrorsComponent {
   _message: string;
   _hide = true;
 
-  setMessage(value: any) {
-    if (value !== this._message) {
-      this._message = value;
-      this._hide = !value;
+  setMessage(message: string | null) {
+    if (message !== this._message) {
+      this._message = message || '';
+      this._hide = !message;
       this.changeDetectionRef.detectChanges();
     }
   }
