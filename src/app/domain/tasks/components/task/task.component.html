@@ -1,10 +1,28 @@
-<span>{{ task.name }}</span>
+<div>
+  <span *ngIf="!editing">{{ task.name }}</span>
+  <input
+    type="text"
+    *ngIf="editing"
+    [formControl]="newNameControl"
+    (keyup.enter)="editName()"
+  />
+</div>
 
 <div class="actions">
+  @if (!editing) {
   <button>
     <span class="material-symbols-outlined"> edit </span>
   </button>
+
   <button>
     <span class="material-symbols-outlined"> delete </span>
   </button>
+  } @else {
+  <button [disabled]="!newNameIsValid" (click)="editName()">
+    <span class="material-symbols-outlined"> check </span>
+  </button>
+  <button (click)="closeEditingMode()">
+    <span class="material-symbols-outlined"> close </span>
+  </button>
+  }
 </div>

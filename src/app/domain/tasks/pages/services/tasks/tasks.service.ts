@@ -13,4 +13,8 @@ export class TasksService {
   getTasks() {
     return this.http.get(`${this.baseApi}/tasks`);
   }
+
+  editTaskName(newName: string, id: number) {
+    return this.http.post(`${this.baseApi}/tasks/edit`, { newName, id });
+  }
 }

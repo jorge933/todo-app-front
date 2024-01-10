@@ -32,4 +32,8 @@ export class TasksPage {
   updateTasks(tasks: Task[]) {
     this.tasks.update(() => tasks);
   }
+
+  editTaskName(newName: string, id: number) {
+    this.tasksService.editTaskName(newName, id).subscribe();
+  }
 }
