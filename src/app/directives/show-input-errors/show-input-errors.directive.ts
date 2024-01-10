@@ -2,17 +2,18 @@ import {
   ComponentRef,
   Directive,
   Inject,
+  Optional,
   Self,
   ViewContainerRef,
 } from '@angular/core';
-import { NgControl } from '@angular/forms';
+import { ControlContainer, NgControl } from '@angular/forms';
 import { InputErrorsComponent } from '../../components/input-errors/input-errors.component';
 import { FORM_ERRORS } from '../../constants/error-messages';
 import { Error as FormErrors } from '../../domain/auth/interfaces/error-messages.interface';
 import { ControlErrorContainerDirective } from '../control-errors-container/control-errors-container.directive';
 
 @Directive({
-  selector: 'input[matInput]',
+  selector: 'input[matInput], form[taShowInputErrorsDirective]',
   standalone: true,
 })
 export class ShowInputErrorsDirective {
@@ -20,7 +21,8 @@ export class ShowInputErrorsDirective {
   container: ViewContainerRef;
 
   constructor(
-    @Self() private control: NgControl,
+    @Optional() @Self() private control: NgControl,
+    @Optional() @Self() private controlContainer: ControlContainer,
     @Inject(FORM_ERRORS) private errors: FormErrors,
     controlErrorContainer: ControlErrorContainerDirective
   ) {
@@ -28,7 +30,9 @@ export class ShowInputErrorsDirective {
   }
 
   ngOnInit(): void {
-    this.control.valueChanges?.subscribe(() => {
+    const control = this.control ? this.control : this.controlContainer;
+
+    control.valueChanges?.subscribe(() => {
       const { errors } = this.control;
 
       if (errors) {
