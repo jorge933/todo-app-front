@@ -12,6 +12,8 @@ export class InputErrorsComponent {
   _message: string;
   _hide = true;
 
+  constructor(private changeDetectionRef: ChangeDetectorRef) {}
+
   setMessage(message: string | null) {
     if (message !== this._message) {
       this._message = message || '';
@@ -19,6 +21,4 @@ export class InputErrorsComponent {
       this.changeDetectionRef.detectChanges();
     }
   }
-
-  constructor(private changeDetectionRef: ChangeDetectorRef) {}
 }
