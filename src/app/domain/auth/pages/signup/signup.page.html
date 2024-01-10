@@ -1,6 +1,8 @@
 @if (httpErrorTypeService.errors() && !form.valid) { @for (error of
 httpErrorTypeService.errors(); track $index) {
 <mat-error>{{ error.message }}</mat-error>
+} } @if (!!formErrors().length) { @for (error of formErrors(); track $index) {
+<mat-error>{{ error }}</mat-error>
 } }
 
 <form [formGroup]="form" (submit)="createUser()" [class.error]="authFailed">

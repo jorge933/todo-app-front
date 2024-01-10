@@ -1,9 +1,11 @@
-import { inject } from '@angular/core';
+import { inject, signal } from '@angular/core';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorTypeService } from '../../../services/http-error-type/http-error-type.service';
 import { EncryptStorageService } from '../../../services/utils/encrypt-storage.service';
 import { HttpSuccessReturn } from '../interfaces/auth.service.interface';
+import { debounceTime } from 'rxjs';
+import { errors } from '../../../constants/error-messages';
 
 type Form = FormGroup<any>;
 
@@ -12,6 +14,7 @@ export class BaseAuthForm {
   router: Router;
   fields: string[];
   authFailed = false;
+  formErrors = signal<string[]>([]);
 
   private readonly alreadyBeenRegisteredError = {
     credentialsAlreadyBeenRegistered: true,
@@ -23,11 +26,27 @@ export class BaseAuthForm {
     fields: string[]
   ) {
     this.form = form;
+    this.fields = fields;
+    this.router = inject(Router);
+
     httpErrorTypeService.errors$$.subscribe(() => {
       this.requestError();
     });
-    this.fields = fields;
-    this.router = inject(Router);
+
+    form.valueChanges.pipe(debounceTime(500)).subscribe(() => {
+      const values = Object.keys(form.errors ?? {});
+      const messages = values.reduce(
+        (previousValue: any, currentValue: any) => {
+          const message = errors[currentValue]();
+          return [...previousValue, message];
+        },
+        []
+      );
+
+      this.formErrors.update(() => {
+        return messages;
+      });
+    });
   }
 
   get buttonDisabled() {
