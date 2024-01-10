@@ -23,6 +23,7 @@ export class TaskComponent {
   @Output() editTaskName = new EventEmitter<string>();
   newNameControl = new FormControl<string>('', [
     Validators.required,
+    Validators.minLength(3),
   ]) as FormControl<string>;
   editing = false;
 
