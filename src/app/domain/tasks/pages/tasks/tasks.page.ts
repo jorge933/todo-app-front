@@ -33,10 +33,6 @@ export class TasksPage {
     this.tasks.update(() => tasks);
   }
 
-  editTaskName(newName: string, id: number) {
-    this.tasksService.editTaskName(newName, id).subscribe();
-  }
-
   deleteTask(id: number) {
     this.tasksService.deleteTask(id).subscribe({
       next: () => {

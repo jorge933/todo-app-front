@@ -1,7 +1,3 @@
 @for (task of tasks(); track $index) {
-<ta-task
-  [task]="task"
-  (editTaskName)="editTaskName($event, task._id)"
-  (deleteTask)="deleteTask(task._id)"
-/>
+<ta-task [task]="task" (deleteTask)="deleteTask(task._id)" />
 }

@@ -9,6 +9,7 @@ import {
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { filter, fromEvent } from 'rxjs';
 import { Task } from '../../interfaces/task';
+import { TasksService } from '../../services/tasks/tasks.service';
 
 @Component({
   selector: 'ta-task',
@@ -28,7 +29,10 @@ export class TaskComponent {
   ]) as FormControl<string>;
   editing = false;
 
-  constructor(private component: ElementRef) {}
+  constructor(
+    private component: ElementRef,
+    private tasksService: TasksService
+  ) {}
 
   private get element() {
     return this.component.nativeElement;
@@ -74,9 +78,11 @@ export class TaskComponent {
     if (!this.newNameIsValid) return;
     const newName = this.newNameControl.value;
 
-    this.task.name = newName;
-
-    this.editTaskName.emit(newName);
-    this.closeEditingMode();
+    this.tasksService.editTaskName(newName, this.task._id).subscribe({
+      next: () => {
+        this.task.name = newName;
+        this.closeEditingMode();
+      },
+    });
   }
 }
