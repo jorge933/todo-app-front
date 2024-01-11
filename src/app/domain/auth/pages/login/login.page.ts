@@ -34,7 +34,7 @@ import { ControlErrorContainerDirective } from '../../../../directives/control-e
   styleUrl: '../../pages.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class LoginPage extends BaseAuthForm {
+export default class LoginPage extends BaseAuthForm {
   constructor(
     private readonly authService: AuthService,
     private readonly storageService: EncryptStorageService,

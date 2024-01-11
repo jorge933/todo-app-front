@@ -25,7 +25,7 @@ import { TasksService } from '../../services/tasks/tasks.service';
   templateUrl: './tasks.page.html',
   styleUrl: './tasks.page.scss',
 })
-export class TasksPage {
+export default class TasksPage {
   tasks = signal<Task[]>([]);
   newTaskNameControl = new FormControl<string>('', [
     Validators.required,
