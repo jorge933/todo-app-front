@@ -7,9 +7,17 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow-x: hidden;
 }
 
 .mat-mdc-form-field-subscript-wrapper,
 .mat-mdc-form-field-bottom-align::before {
   height: 0;
+}
+
+* mat-form-field .mdc-text-field--filled {
+  &,
+  * {
+    background: none !important;
+  }
 }

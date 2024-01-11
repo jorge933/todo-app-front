@@ -21,4 +21,8 @@ export class TasksService {
   deleteTask(id: number) {
     return this.http.delete(`${this.baseApi}/tasks`, { body: { id } });
   }
+
+  create(name: string) {
+    return this.http.post(`${this.baseApi}/tasks/create`, { name });
+  }
 }

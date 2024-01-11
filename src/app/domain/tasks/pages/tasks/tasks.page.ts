@@ -1,18 +1,35 @@
 import { Component, signal } from '@angular/core';
-import { TasksService } from '../../services/tasks/tasks.service';
-import { Task } from '../../interfaces/task';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { ControlErrorContainerDirective } from '../../../../directives/control-errors-container/control-errors-container.directive';
+import { ShowInputErrorsDirective } from '../../../../directives/show-input-errors/show-input-errors.directive';
 import { TaskComponent } from '../../components/task/task.component';
+import { Task } from '../../interfaces/task';
+import { TasksService } from '../../services/tasks/tasks.service';
 
 @Component({
   selector: 'ta-tasks-page',
   standalone: true,
-  imports: [TaskComponent],
+  imports: [
+    TaskComponent,
+    MatInputModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    ShowInputErrorsDirective,
+    ControlErrorContainerDirective,
+  ],
   providers: [TasksService],
   templateUrl: './tasks.page.html',
   styleUrl: './tasks.page.scss',
 })
 export class TasksPage {
   tasks = signal<Task[]>([]);
+  newTaskNameControl = new FormControl<string>('', [
+    Validators.required,
+    Validators.minLength(3),
+  ]) as FormControl<string>;
+
   constructor(private tasksService: TasksService) {}
 
   ngOnInit(): void {
@@ -38,6 +55,28 @@ export class TasksPage {
       next: () => {
         const tasks = this.tasks().filter((task) => task._id !== id);
         this.updateTasks(tasks);
+      },
+    });
+  }
+
+  createTask() {
+    const { valid: isValid, value: name } = this.newTaskNameControl;
+
+    if (!isValid) return;
+
+    this.tasksService.create(name).subscribe({
+      next: (res) => {
+        const tasks = this.tasks();
+
+        if (tasks.length < 10) {
+          tasks.push({
+            _id: res as number,
+            name,
+          });
+          this.updateTasks(tasks);
+        }
+
+        this.newTaskNameControl.reset();
       },
     });
   }

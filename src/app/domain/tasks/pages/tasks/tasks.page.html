@@ -1,3 +1,25 @@
+<form class="card" (submit)="$event.preventDefault()">
+  <div>
+    <mat-form-field controlErrorContainer>
+      <mat-label>Nome Da Nova Tarefa</mat-label>
+      <input
+        matInput
+        [formControl]="newTaskNameControl"
+        placeholder="Ex. Ler"
+        (keyup.enter)="createTask()"
+      />
+    </mat-form-field>
+  </div>
+  <button
+    mat-raised-button
+    color="primary"
+    type="button"
+    (click)="createTask()"
+  >
+    &#43;
+  </button>
+</form>
+
 @for (task of tasks(); track $index) {
-<ta-task [task]="task" (deleteTask)="deleteTask(task._id)" />
+<ta-task class="card" [task]="task" (deleteTask)="deleteTask(task._id)" />
 }
