@@ -1,19 +1,18 @@
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivateFn,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { EncryptStorageService } from '../services/encrypt-storage/encrypt-storage.service';
-import { inject } from '@angular/core';
+import { USER_INFOS } from '../constants/user-infos';
 
 export const authGuard: CanActivateFn = (
   next: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ): boolean => {
-  const encryptedStorage = inject(EncryptStorageService);
+  const { token } = inject(USER_INFOS);
   const router = inject(Router);
-  const token = encryptedStorage.getItem('token');
 
   if (!token) router.navigate(['/auth/login']);
 

@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
+import { Component, Inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { EncryptStorageService } from './services/encrypt-storage/encrypt-storage.service';
-import { User } from './interfaces/user';
+import { USER_INFOS } from './constants/user-infos';
+import { User, UserInfos } from './interfaces/user';
 
 @Component({
   selector: 'app-root',
@@ -14,11 +14,7 @@ import { User } from './interfaces/user';
 export class AppComponent {
   user: User;
 
-  constructor(private encryptStorage: EncryptStorageService) {}
-
-  ngOnInit(): void {
-    const userInStorage = this.encryptStorage.getItem('user');
-
-    if (userInStorage) this.user = userInStorage;
+  constructor(@Inject(USER_INFOS) private readonly userInfos: UserInfos) {
+    this.user = this.userInfos.user as User;
   }
 }
