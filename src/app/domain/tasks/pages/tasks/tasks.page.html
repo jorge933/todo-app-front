@@ -1,24 +1,30 @@
-<form class="card" (submit)="$event.preventDefault()">
-  <div>
-    <mat-form-field controlErrorContainer>
-      <mat-label>Nome Da Nova Tarefa</mat-label>
-      <input
-        matInput
-        [formControl]="newTaskNameControl"
-        placeholder="Ex. Ler"
-        (keyup.enter)="createTask()"
-      />
-    </mat-form-field>
-  </div>
-  <button
-    mat-raised-button
-    color="primary"
-    type="button"
-    (click)="createTask()"
-  >
-    &#43;
-  </button>
-</form>
+<mat-expansion-panel hideToggle class="card">
+  <mat-expansion-panel-header>
+    <mat-panel-title> Criar Tarefa </mat-panel-title>
+  </mat-expansion-panel-header>
+  <form (submit)="$event.preventDefault()">
+    <div>
+      <mat-form-field controlErrorContainer>
+        <mat-label>Nome Da Nova Tarefa</mat-label>
+        <input
+          matInput
+          [formControl]="newTaskNameControl"
+          placeholder="Ex. Ler"
+          (keyup.enter)="createTask()"
+        />
+      </mat-form-field>
+    </div>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [disabled]="!newTaskNameControl.valid"
+      (click)="createTask()"
+    >
+      &#43;
+    </button>
+  </form>
+</mat-expansion-panel>
 
 @for (task of tasks(); track $index) {
 <ta-task class="card" [task]="task" (deleteTask)="deleteTask(task._id)" />
