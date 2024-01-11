@@ -1,3 +1,18 @@
-<header class="mat-primary"><h1>TodoApp</h1></header>
+<header class="mat-primary">
+  <h1>TodoApp</h1>
+  @if (user) {
+  <div>
+    <span>Olá, {{ user.username }}</span>
+    <img
+      src="{{ user.photo }}"
+      alt="{{ user.username }} Photo"
+      *ngIf="user.photo"
+    />
+    <span class="material-symbols-outlined" *ngIf="!user.photo">
+      account_circle
+    </span>
+  </div>
+  }
+</header>
 
 <router-outlet></router-outlet>

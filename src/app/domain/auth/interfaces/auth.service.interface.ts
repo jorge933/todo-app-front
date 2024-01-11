@@ -1,13 +1,9 @@
+import { User } from '../../../interfaces/user';
+
 export interface RegisterUser {
   email: string;
   username: string;
   password: string;
-}
-
-interface User {
-  username: string;
-  email: string;
-  photo?: string;
 }
 
 export interface Data {
