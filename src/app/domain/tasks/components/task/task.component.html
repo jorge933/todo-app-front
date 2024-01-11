@@ -6,12 +6,13 @@
     [formControl]="newNameControl"
     (keyup.enter)="editName()"
     (keyup.esc)="closeEditingMode()"
+    id="{{ task._id }}"
   />
 </div>
 
 <div class="actions">
   @if (!editing) {
-  <button class="safe" (click)="changeToEditingMode()">
+  <button class="safe" (click)="changeToEditingMode($event)">
     <span class="material-symbols-outlined"> edit </span>
   </button>
 

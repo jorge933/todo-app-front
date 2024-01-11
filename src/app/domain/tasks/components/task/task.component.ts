@@ -65,7 +65,8 @@ export class TaskComponent {
     });
   }
 
-  changeToEditingMode() {
+  changeToEditingMode(event?: Event) {
+    if (event) event.stopPropagation();
     this.editing = true;
     this.newNameControl.setValue(this.task.name);
   }
