@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { ShowInputErrorsDirective } from '../../../../directives/show-input-errors/show-input-errors.directive';
 import { HttpErrorTypeService } from '../../../../services/http-error-type/http-error-type.service';
-import { EncryptStorageService } from '../../../../services/utils/encrypt-storage.service';
+import { EncryptStorageService } from '../../../../services/encrypt-storage/encrypt-storage.service';
 import { BaseAuthForm } from '../../classes/base-auth';
 import { UserLogin } from '../../interfaces/auth.service.interface';
 import { AuthService } from '../../services/auth/auth.service';

@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
 import { ControlErrorContainerDirective } from '../../../../directives/control-errors-container/control-errors-container.directive';
 import { ShowInputErrorsDirective } from '../../../../directives/show-input-errors/show-input-errors.directive';
 import { HttpErrorTypeService } from '../../../../services/http-error-type/http-error-type.service';
-import { EncryptStorageService } from '../../../../services/utils/encrypt-storage.service';
+import { EncryptStorageService } from '../../../../services/encrypt-storage/encrypt-storage.service';
 import { BaseAuthForm } from '../../classes/base-auth';
 import { RegisterUser } from '../../interfaces/auth.service.interface';
 import { AuthService } from '../../services/auth/auth.service';

@@ -1,6 +1,6 @@
 import { HttpHeaders, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { EncryptStorageService } from '../../services/utils/encrypt-storage.service';
+import { EncryptStorageService } from '../../services/encrypt-storage/encrypt-storage.service';
 
 export const addTokenInRequestInterceptor: HttpInterceptorFn = (
   request,

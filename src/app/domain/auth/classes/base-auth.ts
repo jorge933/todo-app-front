@@ -2,7 +2,7 @@ import { inject, signal } from '@angular/core';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorTypeService } from '../../../services/http-error-type/http-error-type.service';
-import { EncryptStorageService } from '../../../services/utils/encrypt-storage.service';
+import { EncryptStorageService } from '../../../services/encrypt-storage/encrypt-storage.service';
 import { HttpSuccessReturn } from '../interfaces/auth.service.interface';
 import { debounceTime } from 'rxjs';
 import { errors } from '../../../constants/error-messages';

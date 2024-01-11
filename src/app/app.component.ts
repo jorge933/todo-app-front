@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { EncryptStorageService } from './services/utils/encrypt-storage.service';
+import { EncryptStorageService } from './services/encrypt-storage/encrypt-storage.service';
 import { User } from './interfaces/user';
 
 @Component({
