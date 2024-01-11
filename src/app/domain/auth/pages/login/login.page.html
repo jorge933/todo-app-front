@@ -12,13 +12,11 @@ httpErrorTypeService.errors(); track $index) {
     <mat-label>Seu Usuário ou Email</mat-label>
     <input matInput formControlName="login" />
   </mat-form-field>
-  <ta-input-errors />
 
   <mat-form-field controlErrorContainer>
     <mat-label>Senha</mat-label>
     <input matInput formControlName="password" />
   </mat-form-field>
-  <ta-input-errors />
 
   <button mat-raised-button color="primary" [disabled]="buttonDisabled">
     Entrar
