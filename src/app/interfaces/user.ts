@@ -3,3 +3,8 @@ export interface User {
   email: string;
   photo?: string;
 }
+
+export interface UserInfos {
+  token?: string;
+  user?: User;
+}
