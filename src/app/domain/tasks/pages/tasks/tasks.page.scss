@@ -6,37 +6,41 @@
   flex-direction: column;
   align-items: center;
 
-  form {
-    @include flex-center(center);
-    width: 95%;
-    margin: auto;
-
-    div {
-      &,
-      mat-form-field {
-        width: 100%;
-      }
-
-      mat-form-field {
-        font-size: 20px;
-      }
-    }
-
-    button {
-      margin-left: 15px;
-      height: 56px;
-    }
-  }
-
-  mat-error {
-    font-weight: 600;
-  }
-
   .card {
     width: 80%;
     margin-top: 20px;
     padding: 0.5rem 1.5rem;
     border-radius: 4px;
     box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  mat-expansion-panel {
+    padding: 0 1.5rem !important;
+
+    form {
+      @include flex-center(center);
+      width: 95%;
+      margin: auto;
+
+      div {
+        &,
+        mat-form-field {
+          width: 100%;
+        }
+
+        mat-form-field {
+          font-size: 20px;
+        }
+      }
+
+      button {
+        margin-left: 15px;
+        height: 56px;
+      }
+    }
+  }
+
+  mat-error {
+    font-weight: 600;
   }
 }
