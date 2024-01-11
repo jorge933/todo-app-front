@@ -71,7 +71,9 @@ export class LoginPage extends BaseAuthForm {
     const request$ = this.authService.login(credentials);
 
     request$.subscribe({
-      next: (response) => this.requestSuccess(response, this.storageService),
+      next: (response) => {
+        this.requestSuccess(response, this.storageService);
+      },
     });
   }
 }
