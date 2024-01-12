@@ -1,5 +1,5 @@
 import { InjectionToken, inject } from '@angular/core';
-import { User, UserInfos } from '../interfaces/user';
+import { UserInfos } from '../interfaces/user';
 import { EncryptStorageService } from '../services/encrypt-storage/encrypt-storage.service';
 
 export function getUserInfos(): UserInfos {
