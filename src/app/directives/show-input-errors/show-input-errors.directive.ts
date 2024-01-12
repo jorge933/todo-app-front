@@ -33,7 +33,7 @@ export class ShowInputErrorsDirective {
     const control = this.control ? this.control : this.controlContainer;
 
     control.valueChanges?.subscribe(() => {
-      const { errors } = this.control;
+      const { errors } = control;
 
       if (errors && control.dirty) {
         const firstErrorName = Object.keys(errors)[0];
