@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 
@@ -10,8 +10,10 @@ export class TasksService {
 
   constructor(private http: HttpClient) {}
 
-  getTasks() {
-    return this.http.get(`${this.baseApi}/tasks`);
+  getTasks(params?: HttpParams) {
+    return this.http.get(`${this.baseApi}/tasks`, {
+      params,
+    });
   }
 
   editTaskName(newName: string, id: number) {

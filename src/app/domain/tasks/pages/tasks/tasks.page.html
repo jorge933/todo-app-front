@@ -2,6 +2,7 @@
   <mat-expansion-panel-header>
     <mat-panel-title> Criar Tarefa </mat-panel-title>
   </mat-expansion-panel-header>
+
   <form (submit)="$event.preventDefault()">
     <div>
       <mat-form-field controlErrorContainer>
@@ -14,6 +15,7 @@
         />
       </mat-form-field>
     </div>
+
     <button
       mat-raised-button
       color="primary"
@@ -22,6 +24,93 @@
       (click)="createTask()"
     >
       &#43;
+    </button>
+  </form>
+</mat-expansion-panel>
+
+<mat-expansion-panel class="card filter-tasks">
+  <mat-expansion-panel-header>
+    <mat-panel-title> Filtrar Tarefas </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <form [formGroup]="filterTasksForm" (submit)="filterTasks()">
+    <div class="name">
+      <mat-form-field controlErrorContainer>
+        <mat-label>Nome Da Nova Tarefa</mat-label>
+        <input matInput formControlName="name" placeholder="Ex. Ler" />
+      </mat-form-field>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Tarefas Criadas Em</mat-label>
+
+      <mat-date-range-input
+        formGroupName="createdAt"
+        [rangePicker]="createdAtPicker"
+        [dateFilter]="filterFutureDates"
+      >
+        <input matStartDate placeholder="Start date" formControlName="start" />
+
+        <input matEndDate placeholder="end date" formControlName="end" />
+      </mat-date-range-input>
+
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="createdAtPicker"
+      ></mat-datepicker-toggle>
+
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+
+      <mat-date-range-picker #createdAtPicker></mat-date-range-picker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Tarefas Atualizadas Em</mat-label>
+      <mat-date-range-input
+        formGroupName="updatedAt"
+        [rangePicker]="updatedAtPicker"
+        [dateFilter]="filterFutureDates"
+      >
+        <input matStartDate placeholder="Start date" formControlName="start" />
+        <input matEndDate placeholder="end date" formControlName="end" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="updatedAtPicker"
+      ></mat-datepicker-toggle>
+
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+
+      <mat-date-range-picker #updatedAtPicker></mat-date-range-picker>
+    </mat-form-field>
+
+    <div [ngClass]="{'order-by': true, active: !!propToSort.value}">
+      <mat-form-field>
+        <mat-label>Ordenar por:</mat-label>
+        <mat-select [formControl]="propToSort">
+          <mat-option *ngIf="!!propToSort.value">Clear</mat-option>
+          <mat-option value="name">Nome</mat-option>
+          <mat-option value="updatedAt">Atualizados Recentemente</mat-option>
+          <mat-option value="createdAt">Criados Recentemente</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Ordem:</mat-label>
+        <mat-select [formControl]="order">
+          <mat-option value="asc" selected>Ascendente</mat-option>
+          <mat-option value="desc">Descendente</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!filterTasksForm.valid"
+    >
+      Filtrar
     </button>
   </form>
 </mat-expansion-panel>
