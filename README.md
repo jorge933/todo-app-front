@@ -9,8 +9,8 @@
 </div>
 
 <p align="center"> 
-  <img alt="Top Language" src="https://img.shields.io/github/languages/top/jorge933/angular-todo-app?color=3498db&style=for-the-badge">
-  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/jorge933/angular-todo-app?color=3498db&style=for-the-badge&label=Ultimo%20Commit">   
+  <img alt="Top Language" src="https://img.shields.io/github/languages/top/jorge933/todo-app-front?color=3498db&style=for-the-badge">
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/jorge933/todo-app-front?color=3498db&style=for-the-badge&label=Ultimo%20Commit">   
   <a href="https://github.com/jorge933">
     <img alt="Developed by Jorge Vitor" src="https://img.shields.io/badge/Developer-Jorge_Vitor-%3498db?color=3498db&style=for-the-badge&label=Desenvolvedor">
   </a>
