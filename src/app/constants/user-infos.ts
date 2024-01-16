@@ -1,10 +1,10 @@
 import { InjectionToken, inject } from '@angular/core';
 import { UserInfos } from '../interfaces/user';
-import { EncryptStorageService } from '../services/storage/storage.service';
+import { StorageService } from '../services/storage/storage.service';
 
 export function getUserInfos(): UserInfos {
-  const encryptStorage = inject(EncryptStorageService);
-  const userInfos = encryptStorage.getMultipleItems<UserInfos>([
+  const storageService = inject(StorageService);
+  const userInfos = storageService.getMultipleItems<UserInfos>([
     'token',
     'user',
   ]);

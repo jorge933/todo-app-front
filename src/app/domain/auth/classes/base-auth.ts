@@ -1,23 +1,16 @@
 import { inject, signal } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-} from '@angular/forms';
+import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpErrorTypeService } from '../../../services/http-error-type/http-error-type.service';
-import { EncryptStorageService } from '../../../services/encrypt-storage/encrypt-storage.service';
+import { HotToastService } from '@ngneat/hot-toast';
 import { debounceTime } from 'rxjs';
 import { errors } from '../../../constants/error-messages';
+import { HOT_TOAST_STYLES } from '../../../constants/hot-toast-styles';
 import {
   ErrorResponse,
   SuccessResponse,
 } from '../../../services/base/base.service.interface';
+import { StorageService } from '../../../services/storage/storage.service';
 import { UserResponse } from '../interfaces/auth.service.interface';
-import { HotToastService } from '@ngneat/hot-toast';
-import { HttpErrorResponse } from '@angular/common/http';
-import { HOT_TOAST_STYLES } from '../../../constants/hot-toast-styles';
 
 type Form<T extends { [K in keyof T]: FormControl<string | number | null> }> =
   FormGroup<T>;
@@ -106,7 +99,7 @@ export class BaseAuthForm<
 
   requestSuccess(
     { data }: SuccessResponse<UserResponse>,
-    storageService: EncryptStorageService
+    storageService: StorageService
   ) {
     const { token, user } = data;
     const userStringify = JSON.stringify(user);

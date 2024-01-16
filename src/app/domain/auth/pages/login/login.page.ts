@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
 import { InputErrorsComponent } from '../../../../components/input-errors/input-errors.component';
 import { ControlErrorContainerDirective } from '../../../../directives/control-errors-container/control-errors-container.directive';
 import { ShowInputErrorsDirective } from '../../../../directives/show-input-errors/show-input-errors.directive';
-import { EncryptStorageService } from '../../../../services/encrypt-storage/encrypt-storage.service';
+import { StorageService } from '../../../../services/storage/storage.service';
 import { HttpErrorTypeService } from '../../../../services/http-error-type/http-error-type.service';
 import { BaseAuthForm } from '../../classes/base-auth';
 import {
@@ -43,7 +43,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 export default class LoginPage extends BaseAuthForm<LoginForm> {
   constructor(
     private readonly authService: AuthService,
-    private readonly storageService: EncryptStorageService,
+    private readonly storageService: StorageService,
     readonly httpErrorTypeService: HttpErrorTypeService,
     hotToastService: HotToastService
   ) {
