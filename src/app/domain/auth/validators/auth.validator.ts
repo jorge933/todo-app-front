@@ -17,7 +17,9 @@ export function confirmPassword(
   const { password, confirmPassword } = formGroup?.controls;
   const equalPasswords = password?.value === confirmPassword?.value;
 
-  return equalPasswords ? null : { invalidConfirmPassword: true };
+  return equalPasswords || !confirmPassword.dirty
+    ? null
+    : { invalidConfirmPassword: true };
 }
 
 export function isEmailValidator(control: AbstractControl) {
