@@ -21,6 +21,7 @@ export class BaseAuthForm<
   router: Router;
   authFailed = false;
   formErrors = signal<string[]>([]);
+  inputValueHide = true;
 
   private readonly alreadyBeenRegisteredError: ValidationErrors = {
     credentialsAlreadyBeenRegistered: true,
@@ -144,5 +145,10 @@ export class BaseAuthForm<
       this.authFailed = false;
       this.form.setErrors(errors);
     } else this.setError(this.alreadyBeenRegisteredError);
+  }
+
+  toggleInputsValueVisibility(event: Event) {
+    event.stopPropagation();
+    this.inputValueHide = !this.inputValueHide;
   }
 }

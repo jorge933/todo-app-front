@@ -22,14 +22,27 @@ httpErrorTypeService.errors(); track $index) {
     />
   </mat-form-field>
 
-  <mat-form-field controlErrorContainer>
+  <mat-form-field controlErrorContainer class="password">
     <mat-label>Senha</mat-label>
-    <input matInput formControlName="password" />
+    <input
+      matInput
+      formControlName="password"
+      [type]="inputValueHide ? 'password' : 'text'"
+    />
+    <button (click)="toggleInputsValueVisibility($event)">
+      <span class="material-symbols-outlined">
+        {{ inputValueHide ? 'visibility' : 'visibility_off' }}
+      </span>
+    </button>
   </mat-form-field>
 
   <mat-form-field controlErrorContainer>
     <mat-label>Confirme Sua Senha</mat-label>
-    <input matInput formControlName="confirmPassword" />
+    <input
+      matInput
+      formControlName="confirmPassword"
+      [type]="inputValueHide ? 'password' : 'text'"
+    />
   </mat-form-field>
 
   <button mat-raised-button color="primary" [disabled]="formIsValid">
