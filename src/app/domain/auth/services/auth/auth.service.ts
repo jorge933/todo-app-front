@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
-import { UserLogin } from '../../interfaces/auth.service.interface';
 import { BaseService } from '../../../../services/base/base.service';
+import { UserLogin } from '../../interfaces/auth.service.interface';
 
 @Injectable({
   providedIn: 'root',

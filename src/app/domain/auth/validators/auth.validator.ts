@@ -1,9 +1,4 @@
-import {
-  AbstractControl,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-} from '@angular/forms';
+import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { default as validator } from 'validator';
 
 interface Controls {

@@ -8,19 +8,19 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { InputErrorsComponent } from '../../../../components/input-errors/input-errors.component';
 import { ControlErrorContainerDirective } from '../../../../directives/control-errors-container/control-errors-container.directive';
 import { ShowInputErrorsDirective } from '../../../../directives/show-input-errors/show-input-errors.directive';
-import { StorageService } from '../../../../services/storage/storage.service';
 import { HttpErrorTypeService } from '../../../../services/http-error-type/http-error-type.service';
+import { StorageService } from '../../../../services/storage/storage.service';
 import { BaseAuthForm } from '../../classes/base-auth';
+import { LoginForm } from '../../interfaces/auth-forms';
 import {
   UserLogin,
   UserResponse,
 } from '../../interfaces/auth.service.interface';
 import { AuthService } from '../../services/auth/auth.service';
-import { LoginForm } from '../../interfaces/auth-forms';
-import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'ta-signup',

@@ -3,11 +3,11 @@ import { provideRouter } from '@angular/router';
 
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { routes } from './app.routes';
-import { StorageService } from './services/storage/storage.service';
-import { requestErrorInterceptor } from './interceptors/request-error/request-error.interceptor';
-import { addTokenInRequestInterceptor } from './interceptors/add-token-in-request/add-token-in-request.interceptor';
 import { provideHotToastConfig } from '@ngneat/hot-toast';
+import { routes } from './app.routes';
+import { addTokenInRequestInterceptor } from './interceptors/add-token-in-request/add-token-in-request.interceptor';
+import { requestErrorInterceptor } from './interceptors/request-error/request-error.interceptor';
+import { StorageService } from './services/storage/storage.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [

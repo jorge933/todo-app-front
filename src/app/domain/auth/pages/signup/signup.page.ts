@@ -9,10 +9,12 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { ControlErrorContainerDirective } from '../../../../directives/control-errors-container/control-errors-container.directive';
 import { ShowInputErrorsDirective } from '../../../../directives/show-input-errors/show-input-errors.directive';
-import { StorageService } from '../../../../services/storage/storage.service';
+import { ErrorResponse } from '../../../../services/base/base.service.interface';
 import { HttpErrorTypeService } from '../../../../services/http-error-type/http-error-type.service';
+import { StorageService } from '../../../../services/storage/storage.service';
 import { BaseAuthForm } from '../../classes/base-auth';
 import { SignUpForm } from '../../interfaces/auth-forms';
 import {
@@ -24,8 +26,6 @@ import {
   confirmPassword,
   isEmailValidator,
 } from '../../validators/auth.validator';
-import { HotToastService } from '@ngneat/hot-toast';
-import { ErrorResponse } from '../../../../services/base/base.service.interface';
 
 @Component({
   selector: 'ta-signup',
