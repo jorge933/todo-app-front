@@ -68,12 +68,14 @@ export default class LoginPage extends BaseAuthForm {
       password: password.value,
     };
 
-    const request$ = this.authService.login(credentials);
+    const request$ = this.authService.post<UserResponse>(
+      'auth/login',
+      credentials
+    );
 
     request$.subscribe({
-      next: (response) => {
-        this.requestSuccess(response, this.storageService);
-      },
+      next: (response) => this.requestSuccess(response, this.storageService),
+      error: () => this.requestError(),
     });
   }
 }

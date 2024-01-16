@@ -82,12 +82,17 @@ export default class SignupPage extends BaseAuthForm {
       password: password.value,
     };
 
-    const request$ = this.authService.signup(credentials);
+    const request$ = this.authService.post<UserResponse>(
+      'auth/signup',
+      credentials
+    );
 
     request$.subscribe({
       next: (response) => {
         this.requestSuccess(response, this.storageService);
       },
+
+      error: () => this.requestError(),
     });
   }
 }
