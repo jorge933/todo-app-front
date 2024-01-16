@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { EncryptStorage } from 'encrypt-storage';
 import { environment } from '../../../environments/environment';
 
@@ -6,14 +6,26 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class EncryptStorageService {
-  private encryptStorage = new EncryptStorage(environment.SECRET_KEY);
+  private storage: Storage | EncryptStorage;
 
-  setItem(key: string, value: string) {
-    this.encryptStorage.setItem(key, value);
+  constructor(@Optional() @Inject('storage') storage: Storage) {
+    if (storage) {
+      this.storage = storage;
+    } else {
+      const encryptStorage = new EncryptStorage(environment.SECRET_KEY, {
+        storageType: 'sessionStorage',
+      });
+
+      this.storage = encryptStorage;
+    }
   }
 
-  getItem(key: string) {
-    const item = this.encryptStorage.getItem(key);
+  setItem(key: string, value: string) {
+    this.storage.setItem(key, value);
+  }
+
+  getItem<T>(key: string): T {
+    const item = this.storage.getItem(key) as T;
     return item;
   }
 }
