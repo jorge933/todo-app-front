@@ -1,5 +1,10 @@
 import { inject, signal } from '@angular/core';
-import { FormGroup, ValidationErrors } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorTypeService } from '../../../services/http-error-type/http-error-type.service';
 import { EncryptStorageService } from '../../../services/encrypt-storage/encrypt-storage.service';
@@ -8,12 +13,15 @@ import { errors } from '../../../constants/error-messages';
 import { SuccessResponse } from '../../../services/base/base.service.interface';
 import { UserResponse } from '../interfaces/auth.service.interface';
 
-type Form = FormGroup<any>;
+type Form<T extends { [K in keyof T]: FormControl<string | number | null> }> =
+  FormGroup<T>;
 
-export class BaseAuthForm {
-  form: Form;
+export class BaseAuthForm<
+  T extends { [K in keyof T]: FormControl<string | number | null> }
+> {
+  form: Form<T>;
   router: Router;
-  fields: string[];
+  fields: Array<keyof T>;
   authFailed = false;
   formErrors = signal<string[]>([]);
 
@@ -23,8 +31,8 @@ export class BaseAuthForm {
 
   constructor(
     readonly httpErrorTypeService: HttpErrorTypeService,
-    form: Form,
-    fields: string[]
+    form: Form<T>,
+    fields: Array<keyof T>
   ) {
     this.form = form;
     this.fields = fields;
@@ -63,18 +71,18 @@ export class BaseAuthForm {
   }
 
   requestError() {
-    const initialValues: { [key: string]: string } = {};
+    const initialValues: { [Key in keyof T]?: string } = {};
 
     this.authFailed = true;
 
     this.setError(this.alreadyBeenRegisteredError);
 
-    this.fields.forEach((key: string) => {
-      const value = this.form.controls[key as keyof Form]?.value;
+    this.fields.forEach((key) => {
+      const value = this.form.controls[key]?.value;
 
       if (typeof value !== 'string') return;
 
-      initialValues[key as string] = value;
+      initialValues[key] = value;
     });
 
     const valueChangesSubscription = this.form.valueChanges.subscribe(() => {
@@ -112,9 +120,9 @@ export class BaseAuthForm {
   }
 
   private manageWhenCanResubmitTheForm(initialValues: {
-    [key: string]: string;
+    [Key in keyof T]?: string;
   }) {
-    let currentValues: { [key: string]: string } = {};
+    let currentValues: { [Key in keyof T]?: string } = {};
 
     this.fields.forEach((field) => {
       currentValues[field] = this.form.controls[field].value;

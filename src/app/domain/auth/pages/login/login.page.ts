@@ -19,6 +19,7 @@ import {
   UserResponse,
 } from '../../interfaces/auth.service.interface';
 import { AuthService } from '../../services/auth/auth.service';
+import { LoginForm } from '../../interfaces/auth-forms';
 
 @Component({
   selector: 'ta-signup',
@@ -38,7 +39,7 @@ import { AuthService } from '../../services/auth/auth.service';
   styleUrl: '../../pages.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export default class LoginPage extends BaseAuthForm {
+export default class LoginPage extends BaseAuthForm<LoginForm> {
   constructor(
     private readonly authService: AuthService,
     private readonly storageService: EncryptStorageService,

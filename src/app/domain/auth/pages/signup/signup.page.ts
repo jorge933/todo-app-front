@@ -44,7 +44,7 @@ import {
   styleUrl: '../../pages.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export default class SignupPage extends BaseAuthForm {
+export default class SignupPage extends BaseAuthForm<SignUpForm> {
   constructor(
     private readonly authService: AuthService,
     private readonly storageService: EncryptStorageService,
