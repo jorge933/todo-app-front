@@ -3,7 +3,6 @@ import { FormGroup, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorTypeService } from '../../../services/http-error-type/http-error-type.service';
 import { EncryptStorageService } from '../../../services/encrypt-storage/encrypt-storage.service';
-import { HttpSuccessReturn } from '../interfaces/auth.service.interface';
 import { debounceTime } from 'rxjs';
 import { errors } from '../../../constants/error-messages';
 
@@ -49,7 +48,7 @@ export class BaseAuthForm {
     });
   }
 
-  get buttonDisabled() {
+  get formIsValid() {
     const errors = this.form.errors;
 
     if (!errors) {
@@ -67,7 +66,7 @@ export class BaseAuthForm {
 
     this.setError(this.alreadyBeenRegisteredError);
 
-    this.fields.forEach((key) => {
+    this.fields.forEach((key: string) => {
       const value = this.form.controls[key as keyof Form]?.value;
 
       if (typeof value !== 'string') return;
@@ -86,10 +85,7 @@ export class BaseAuthForm {
     });
   }
 
-  requestSuccess(
-    { data }: HttpSuccessReturn,
-    storageService: EncryptStorageService
-  ) {
+  requestSuccess({ data }: any, storageService: EncryptStorageService) {
     const { token, user } = data;
     const userStringify = JSON.stringify(user);
 

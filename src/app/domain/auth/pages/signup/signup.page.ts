@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ViewEncapsulation } from '@angular/core';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -10,10 +12,14 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { ControlErrorContainerDirective } from '../../../../directives/control-errors-container/control-errors-container.directive';
 import { ShowInputErrorsDirective } from '../../../../directives/show-input-errors/show-input-errors.directive';
-import { HttpErrorTypeService } from '../../../../services/http-error-type/http-error-type.service';
 import { EncryptStorageService } from '../../../../services/encrypt-storage/encrypt-storage.service';
+import { HttpErrorTypeService } from '../../../../services/http-error-type/http-error-type.service';
 import { BaseAuthForm } from '../../classes/base-auth';
-import { RegisterUser } from '../../interfaces/auth.service.interface';
+import { SignUpForm } from '../../interfaces/auth-forms';
+import {
+  RegisterUser,
+  UserResponse,
+} from '../../interfaces/auth.service.interface';
 import { AuthService } from '../../services/auth/auth.service';
 import {
   confirmPassword,
@@ -28,6 +34,7 @@ import {
     MatInputModule,
     MatButtonModule,
     RouterLink,
+    ShowInputErrorsDirective,
     ControlErrorContainerDirective,
     ShowInputErrorsDirective,
   ],
@@ -73,7 +80,7 @@ export default class SignupPage extends BaseAuthForm {
   }
 
   createUser() {
-    if (!!this.buttonDisabled) return;
+    if (!!this.formIsValid) return;
 
     const { username, email, password } = this.form.controls;
     const credentials: RegisterUser = {

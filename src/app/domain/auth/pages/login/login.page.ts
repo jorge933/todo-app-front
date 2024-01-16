@@ -8,14 +8,18 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
-import { ShowInputErrorsDirective } from '../../../../directives/show-input-errors/show-input-errors.directive';
-import { HttpErrorTypeService } from '../../../../services/http-error-type/http-error-type.service';
-import { EncryptStorageService } from '../../../../services/encrypt-storage/encrypt-storage.service';
-import { BaseAuthForm } from '../../classes/base-auth';
-import { UserLogin } from '../../interfaces/auth.service.interface';
-import { AuthService } from '../../services/auth/auth.service';
 import { InputErrorsComponent } from '../../../../components/input-errors/input-errors.component';
 import { ControlErrorContainerDirective } from '../../../../directives/control-errors-container/control-errors-container.directive';
+import { ShowInputErrorsDirective } from '../../../../directives/show-input-errors/show-input-errors.directive';
+import { ErrorResponse } from '../../../../services/base/base.service.interface';
+import { EncryptStorageService } from '../../../../services/encrypt-storage/encrypt-storage.service';
+import { HttpErrorTypeService } from '../../../../services/http-error-type/http-error-type.service';
+import { BaseAuthForm } from '../../classes/base-auth';
+import {
+  UserLogin,
+  UserResponse,
+} from '../../interfaces/auth.service.interface';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'ta-signup',
@@ -26,6 +30,7 @@ import { ControlErrorContainerDirective } from '../../../../directives/control-e
     MatButtonModule,
     RouterLink,
     InputErrorsComponent,
+    ShowInputErrorsDirective,
     ControlErrorContainerDirective,
     ShowInputErrorsDirective,
   ],
@@ -59,7 +64,7 @@ export default class LoginPage extends BaseAuthForm {
   }
 
   login() {
-    if (!!this.buttonDisabled) return;
+    if (!!this.formIsValid) return;
 
     const { login, password } = this.form.controls;
 

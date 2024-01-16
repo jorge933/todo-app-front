@@ -5,13 +5,7 @@ httpErrorTypeService.errors(); track $index) {
 <mat-error>{{ error }}</mat-error>
 } }
 
-<form
-  [formGroup]="form"
-  (submit)="createUser()"
-  [class.error]="authFailed"
-  taShowInputErrorsDirective
-  controlErrorContainer
->
+<form [formGroup]="form" (submit)="createUser()" [class.error]="authFailed">
   <h1>Crie Sua Conta</h1>
 
   <mat-form-field controlErrorContainer>
@@ -38,7 +32,7 @@ httpErrorTypeService.errors(); track $index) {
     <input matInput formControlName="confirmPassword" />
   </mat-form-field>
 
-  <button mat-raised-button color="primary" [disabled]="buttonDisabled">
+  <button mat-raised-button color="primary" [disabled]="formIsValid">
     Criar Conta
   </button>
 

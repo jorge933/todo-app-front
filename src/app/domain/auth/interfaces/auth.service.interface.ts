@@ -1,21 +1,12 @@
 import { User } from '../../../interfaces/user';
 
-export interface RegisterUser {
-  email: string;
-  username: string;
+export interface RegisterUser extends Pick<User, 'email' | 'username'> {
   password: string;
 }
 
-export interface Data {
+export interface UserResponse {
   token: string;
   user: User;
-}
-
-export interface HttpSuccessReturn {
-  data: Data;
-  message: string;
-  statusCode: number;
-  success: boolean;
 }
 
 export interface UserLogin {
