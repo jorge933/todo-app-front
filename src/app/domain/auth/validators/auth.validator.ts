@@ -1,9 +1,21 @@
-import { AbstractControl } from '@angular/forms';
+import {
+  AbstractControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import { default as validator } from 'validator';
 
-export function confirmPassword(formGroup: any) {
-  const { password, confirmPassword } = formGroup.controls;
-  const equalPasswords = password.value === confirmPassword.value;
+interface Controls {
+  password: AbstractControl<string>;
+  confirmPassword: AbstractControl<string>;
+}
+
+export function confirmPassword(
+  formGroup: FormGroup<Controls>
+): ValidationErrors | null {
+  const { password, confirmPassword } = formGroup?.controls;
+  const equalPasswords = password?.value === confirmPassword?.value;
 
   return equalPasswords ? null : { invalidConfirmPassword: true };
 }

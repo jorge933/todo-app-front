@@ -5,6 +5,8 @@ import { HttpErrorTypeService } from '../../../services/http-error-type/http-err
 import { EncryptStorageService } from '../../../services/encrypt-storage/encrypt-storage.service';
 import { debounceTime } from 'rxjs';
 import { errors } from '../../../constants/error-messages';
+import { SuccessResponse } from '../../../services/base/base.service.interface';
+import { UserResponse } from '../interfaces/auth.service.interface';
 
 type Form = FormGroup<any>;
 
@@ -15,7 +17,7 @@ export class BaseAuthForm {
   authFailed = false;
   formErrors = signal<string[]>([]);
 
-  private readonly alreadyBeenRegisteredError = {
+  private readonly alreadyBeenRegisteredError: ValidationErrors = {
     credentialsAlreadyBeenRegistered: true,
   };
 
@@ -34,8 +36,9 @@ export class BaseAuthForm {
 
     form.valueChanges.pipe(debounceTime(500)).subscribe(() => {
       const values = Object.keys(form.errors ?? {});
+
       const messages = values.reduce(
-        (previousValue: any, currentValue: any) => {
+        (previousValue: string[], currentValue: string) => {
           const message = errors[currentValue]();
           return [...previousValue, message];
         },
@@ -85,7 +88,10 @@ export class BaseAuthForm {
     });
   }
 
-  requestSuccess({ data }: any, storageService: EncryptStorageService) {
+  requestSuccess(
+    { data }: SuccessResponse<UserResponse>,
+    storageService: EncryptStorageService
+  ) {
     const { token, user } = data;
     const userStringify = JSON.stringify(user);
 
@@ -95,7 +101,7 @@ export class BaseAuthForm {
     this.router.navigate(['/']);
   }
 
-  private setError(error: { [key: string]: any }) {
+  private setError(error: { [key: string]: ValidationErrors }) {
     const { errors: formErrors } = this.form;
     const errors = {
       ...formErrors,

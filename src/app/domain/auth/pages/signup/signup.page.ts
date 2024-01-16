@@ -5,6 +5,7 @@ import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -73,7 +74,7 @@ export default class SignupPage extends BaseAuthForm {
             Validators.required,
           ]) as FormControl<string>,
         },
-        [confirmPassword]
+        [confirmPassword as ValidatorFn]
       ),
       ['username', 'email']
     );

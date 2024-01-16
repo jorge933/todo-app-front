@@ -4,10 +4,15 @@ import {
   FormErrors,
 } from '../domain/auth/interfaces/error-messages.interface';
 
+interface LengthErrors {
+  actualLength: number;
+  requiredLength: number;
+}
+
 export const errors: Error = {
-  minlength: ({ actualLength, requiredLength }: any) =>
+  minlength: ({ actualLength, requiredLength }: LengthErrors) =>
     `Min. Length: ${actualLength}/${requiredLength}`,
-  maxlength: ({ actualLength, requiredLength }: any) =>
+  maxlength: ({ actualLength, requiredLength }: LengthErrors) =>
     `Max. Length: ${actualLength}/${requiredLength}`,
   required: () => 'Campo obrigatório',
   invalidConfirmPassword: () => 'As senhas precisam ser iguais',
