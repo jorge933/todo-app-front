@@ -5,13 +5,13 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { USER_INFOS } from '../constants/user-infos';
+import { getUserInfos } from '../functions/user-infos';
 
 export const authGuard: CanActivateFn = (
   next: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ): boolean => {
-  const { token } = inject(USER_INFOS);
+  const { token } = getUserInfos();
   const router = inject(Router);
 
   if (!token) router.navigate(['/auth/login']);

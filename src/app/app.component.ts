@@ -1,7 +1,7 @@
 import { CommonModule, NgIf } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { USER_INFOS } from './constants/user-infos';
+import { getUserInfos } from './functions/user-infos';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +11,6 @@ import { USER_INFOS } from './constants/user-infos';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  private readonly userInfos = inject(USER_INFOS);
+  private readonly userInfos = getUserInfos();
   readonly user = this.userInfos.user;
 }
