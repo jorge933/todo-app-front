@@ -20,6 +20,7 @@ import {
 } from '../../interfaces/auth.service.interface';
 import { AuthService } from '../../services/auth/auth.service';
 import { LoginForm } from '../../interfaces/auth-forms';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'ta-signup',
@@ -43,10 +44,10 @@ export default class LoginPage extends BaseAuthForm<LoginForm> {
   constructor(
     private readonly authService: AuthService,
     private readonly storageService: EncryptStorageService,
-    override readonly httpErrorTypeService: HttpErrorTypeService
+    readonly httpErrorTypeService: HttpErrorTypeService,
+    hotToastService: HotToastService
   ) {
     super(
-      httpErrorTypeService,
       new FormGroup({
         login: new FormControl<string>('', [
           Validators.required,
@@ -59,7 +60,8 @@ export default class LoginPage extends BaseAuthForm<LoginForm> {
           Validators.maxLength(20),
         ]) as FormControl<string>,
       }),
-      ['login', 'password']
+      ['login', 'password'],
+      hotToastService
     );
   }
 

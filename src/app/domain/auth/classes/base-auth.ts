@@ -10,8 +10,14 @@ import { HttpErrorTypeService } from '../../../services/http-error-type/http-err
 import { EncryptStorageService } from '../../../services/encrypt-storage/encrypt-storage.service';
 import { debounceTime } from 'rxjs';
 import { errors } from '../../../constants/error-messages';
-import { SuccessResponse } from '../../../services/base/base.service.interface';
+import {
+  ErrorResponse,
+  SuccessResponse,
+} from '../../../services/base/base.service.interface';
 import { UserResponse } from '../interfaces/auth.service.interface';
+import { HotToastService } from '@ngneat/hot-toast';
+import { HttpErrorResponse } from '@angular/common/http';
+import { HOT_TOAST_STYLES } from '../../../constants/hot-toast-styles';
 
 type Form<T extends { [K in keyof T]: FormControl<string | number | null> }> =
   FormGroup<T>;
@@ -19,9 +25,7 @@ type Form<T extends { [K in keyof T]: FormControl<string | number | null> }> =
 export class BaseAuthForm<
   T extends { [K in keyof T]: FormControl<string | number | null> }
 > {
-  form: Form<T>;
   router: Router;
-  fields: Array<keyof T>;
   authFailed = false;
   formErrors = signal<string[]>([]);
 
@@ -30,17 +34,11 @@ export class BaseAuthForm<
   };
 
   constructor(
-    readonly httpErrorTypeService: HttpErrorTypeService,
-    form: Form<T>,
-    fields: Array<keyof T>
+    readonly form: Form<T>,
+    readonly fields: Array<keyof T>,
+    readonly hotToastService: HotToastService
   ) {
-    this.form = form;
-    this.fields = fields;
     this.router = inject(Router);
-
-    httpErrorTypeService.errors$$.subscribe(() => {
-      this.requestError();
-    });
 
     form.valueChanges.pipe(debounceTime(500)).subscribe(() => {
       const values = Object.keys(form.errors ?? {});
@@ -70,7 +68,17 @@ export class BaseAuthForm<
     return !!errorsLength;
   }
 
-  requestError() {
+  requestError(error?: ErrorResponse) {
+    const internalError = error?.error.type;
+
+    if (internalError) {
+      this.hotToastService.error(`Erro interno: ${error.statusText}`, {
+        duration: 3000,
+        style: HOT_TOAST_STYLES.error,
+      });
+      return;
+    }
+
     const initialValues: { [Key in keyof T]?: string } = {};
 
     this.authFailed = true;

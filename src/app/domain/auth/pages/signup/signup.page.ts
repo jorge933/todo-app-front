@@ -1,7 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ViewEncapsulation } from '@angular/core';
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -26,6 +24,8 @@ import {
   confirmPassword,
   isEmailValidator,
 } from '../../validators/auth.validator';
+import { HotToastService } from '@ngneat/hot-toast';
+import { ErrorResponse } from '../../../../services/base/base.service.interface';
 
 @Component({
   selector: 'ta-signup',
@@ -48,10 +48,10 @@ export default class SignupPage extends BaseAuthForm<SignUpForm> {
   constructor(
     private readonly authService: AuthService,
     private readonly storageService: EncryptStorageService,
-    override readonly httpErrorTypeService: HttpErrorTypeService
+    readonly httpErrorTypeService: HttpErrorTypeService,
+    hotToastService: HotToastService
   ) {
     super(
-      httpErrorTypeService,
       new FormGroup(
         {
           username: new FormControl<string>('', [
@@ -76,7 +76,8 @@ export default class SignupPage extends BaseAuthForm<SignUpForm> {
         },
         [confirmPassword as ValidatorFn]
       ),
-      ['username', 'email']
+      ['username', 'email'],
+      hotToastService
     );
   }
 
@@ -100,7 +101,7 @@ export default class SignupPage extends BaseAuthForm<SignUpForm> {
         this.requestSuccess(response, this.storageService);
       },
 
-      error: () => this.requestError(),
+      error: (error: ErrorResponse) => this.requestError(error),
     });
   }
 }
