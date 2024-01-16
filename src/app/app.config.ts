@@ -7,6 +7,7 @@ import { routes } from './app.routes';
 import { EncryptStorageService } from './services/encrypt-storage/encrypt-storage.service';
 import { requestErrorInterceptor } from './interceptors/request-error/request-error.interceptor';
 import { addTokenInRequestInterceptor } from './interceptors/add-token-in-request/add-token-in-request.interceptor';
+import { provideHotToastConfig } from '@ngneat/hot-toast';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,5 +17,6 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([requestErrorInterceptor, addTokenInRequestInterceptor])
     ),
     EncryptStorageService,
+    provideHotToastConfig(),
   ],
 };
