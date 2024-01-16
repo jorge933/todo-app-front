@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
 })
 export class StorageService {
   private storage: Storage | EncryptStorage;
+  private isInstanceOfEncryptStorage: boolean;
 
   constructor(@Optional() @Inject('storage') storage: Storage) {
     if (storage) {
@@ -18,6 +19,8 @@ export class StorageService {
 
       this.storage = encryptStorage;
     }
+
+    this.isInstanceOfEncryptStorage = this.storage instanceof EncryptStorage;
   }
 
   setItem(key: string, value: string) {
@@ -30,9 +33,7 @@ export class StorageService {
   }
 
   getMultipleItems<T>(keys: Array<keyof T>) {
-    const isInstanceOfEncryptStorage = this.storage instanceof EncryptStorage;
-
-    if (!isInstanceOfEncryptStorage) {
+    if (!this.isInstanceOfEncryptStorage) {
       const items: { [Key in keyof T]?: T[Key] } = {};
 
       keys.forEach((key) => {
@@ -46,5 +47,20 @@ export class StorageService {
     const items: { [Key in keyof T]?: T[Key] } =
       this.storage.getMultipleItems(keys);
     return items;
+  }
+
+  setMultipleItems(values: { [key: string]: string }) {
+    if (!this.isInstanceOfEncryptStorage) {
+      const keys = Object.entries(values);
+
+      keys.forEach(([key, value]) => {
+        this.storage.setItem(key, value);
+      });
+
+      return;
+    }
+
+    const valuesInArray = Object.entries(values);
+    this.storage.setMultipleItems(valuesInArray);
   }
 }

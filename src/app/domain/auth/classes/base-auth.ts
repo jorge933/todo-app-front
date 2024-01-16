@@ -104,10 +104,12 @@ export class BaseAuthForm<
     const { token, user } = data;
     const userStringify = JSON.stringify(user);
 
-    storageService.setItem('token', token);
-    storageService.setItem('user', userStringify);
+    storageService.setMultipleItems({
+      token,
+      user: userStringify,
+    });
 
-    this.router.navigate(['/']);
+    this.router.navigate(['']);
   }
 
   private setError(error: { [key: string]: ValidationErrors }) {
