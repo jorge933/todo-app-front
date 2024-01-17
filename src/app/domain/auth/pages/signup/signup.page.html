@@ -45,10 +45,9 @@ httpErrorTypeService.errors(); track $index) {
     />
   </mat-form-field>
 
-  <button mat-raised-button color="primary" [disabled]="formIsValid">
+  <button mat-raised-button [disabled]="formIsValid" type="submit">
     Criar Conta
   </button>
-
   <span
     >Já possui uma conta?
     <a [routerLink]="['/auth/login']">Entrar</a>

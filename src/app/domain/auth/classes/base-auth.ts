@@ -139,12 +139,18 @@ export class BaseAuthForm<
       return initialValue !== currentValue;
     });
 
-    if (valuesAreDifferent) {
-      const errors = this.form.errors ?? ({} as ValidationErrors);
-      delete errors['credentialsAlreadyBeenRegistered'];
-      this.authFailed = false;
+    const setErrorsAndProp = () => {
       this.form.setErrors(errors);
-    } else this.setError(this.alreadyBeenRegisteredError);
+      this.authFailed = !this.authFailed;
+    };
+
+    if (valuesAreDifferent) {
+      const errors = this.form.errors ?? {};
+
+      delete errors['credentialsAlreadyBeenRegistered'];
+
+      setErrorsAndProp();
+    } else setErrorsAndProp();
   }
 
   toggleInputsValueVisibility(event: Event) {

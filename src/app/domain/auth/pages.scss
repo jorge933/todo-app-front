@@ -1,10 +1,9 @@
 @import "../../scss/mixins";
+@import "../../scss/varibles";
 
 @keyframes shakeError {
   20% {
     transform: translateX(20px);
-    background-color: rgba(255, 0, 0, 0.733);
-    color: white;
   }
   40% {
     transform: translateX(-20px);
@@ -16,9 +15,7 @@
     transform: translateX(-20px);
   }
   100% {
-    background-color: rgba(255, 0, 0, 0.733);
     transform: translateX(0px);
-    color: white;
   }
 }
 
@@ -26,6 +23,21 @@
   animation: shakeError 0.8s;
   transition: transform 0.8s;
   box-shadow: 0px 0px 6px 4px rgba(255, 0, 0, 0.603) !important;
+
+  .mdc-text-field--filled:not(.mdc-text-field--disabled)
+    .mdc-line-ripple::after {
+    border-bottom-color: var(--mdc-filled-text-field-error-label-text-color);
+  }
+
+  .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused
+    .mdc-floating-label--float-above {
+    color: var(--mdc-filled-text-field-error-label-text-color);
+  }
+
+  .mdc-text-field--filled:not(.mdc-text-field--disabled)
+    .mdc-text-field__input {
+    caret-color: var(--mdc-filled-text-field-error-label-text-color);
+  }
 }
 
 header {
@@ -52,7 +64,6 @@ ta-signup {
 
   form {
     width: 25%;
-    background-color: white;
     border-radius: 10px;
     padding: 1.5rem 3rem;
     box-shadow: 0px 1px 5px 0px rgb(0 0 0 / 28%);
@@ -75,6 +86,23 @@ ta-signup {
           cursor: pointer;
         }
       }
+
+      .mdc-text-field--filled:not(.mdc-text-field--disabled)
+        .mdc-line-ripple::after {
+        border-bottom-color: $cyan;
+      }
+
+      .mdc-text-field--filled:not(
+          .mdc-text-field--disabled
+        ).mdc-text-field--focused
+        .mdc-floating-label--float-above {
+        color: $cyan;
+      }
+    }
+
+    .mdc-text-field--filled:not(.mdc-text-field--disabled)
+      .mdc-text-field__input {
+      caret-color: $cyan;
     }
 
     & > span {
@@ -83,7 +111,7 @@ ta-signup {
       font-weight: 500;
 
       a {
-        color: #551a8b;
+        color: $cyan;
       }
     }
 
@@ -91,6 +119,11 @@ ta-signup {
       width: 100%;
       padding: 20px 0;
       margin-top: 20px;
+
+      &:not([disabled]) {
+        color: #000000b5;
+        background-color: $cyan;
+      }
     }
   }
 }
