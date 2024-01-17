@@ -14,7 +14,7 @@ export const authRoutesGuard: CanActivateFn = (
   const { token } = getUserInfos();
   const router = inject(Router);
 
-  if (token) router.navigate(['/tasks']);
+  if (token) router.navigate(['tasks']);
 
   return !token;
 };
