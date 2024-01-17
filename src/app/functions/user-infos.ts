@@ -9,5 +9,5 @@ export function getUserInfos() {
     'user',
   ]);
 
-  return userInfos as UserInfos;
+  return userInfos;
 }
