@@ -113,7 +113,7 @@ export class BaseAuthForm<
     this.router.navigate(['']);
   }
 
-  private setError(error: { [key: string]: ValidationErrors }) {
+  private setError(error: ValidationErrors) {
     const { errors: formErrors } = this.form;
     const errors = {
       ...formErrors,
@@ -139,7 +139,7 @@ export class BaseAuthForm<
       return initialValue !== currentValue;
     });
 
-    const setErrorsAndProp = () => {
+    const setErrorsAndProp = (errors: ValidationErrors) => {
       this.form.setErrors(errors);
       this.authFailed = !this.authFailed;
     };
@@ -149,8 +149,8 @@ export class BaseAuthForm<
 
       delete errors['credentialsAlreadyBeenRegistered'];
 
-      setErrorsAndProp();
-    } else setErrorsAndProp();
+      setErrorsAndProp(errors);
+    } else setErrorsAndProp(this.form.errors ?? {});
   }
 
   toggleInputsValueVisibility(event: Event) {
