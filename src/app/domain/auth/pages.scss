@@ -86,23 +86,6 @@ ta-signup {
           cursor: pointer;
         }
       }
-
-      .mdc-text-field--filled:not(.mdc-text-field--disabled)
-        .mdc-line-ripple::after {
-        border-bottom-color: $cyan;
-      }
-
-      .mdc-text-field--filled:not(
-          .mdc-text-field--disabled
-        ).mdc-text-field--focused
-        .mdc-floating-label--float-above {
-        color: $cyan;
-      }
-    }
-
-    .mdc-text-field--filled:not(.mdc-text-field--disabled)
-      .mdc-text-field__input {
-      caret-color: $cyan;
     }
 
     & > span {

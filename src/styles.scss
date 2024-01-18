@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@use '@ngneat/hot-toast/src/styles/styles.scss';
+@use "@ngneat/hot-toast/src/styles/styles.scss";
+@import "./app/scss/variables";
 
 html,
 body {
@@ -25,4 +26,18 @@ body {
 
 .mat-expansion-panel .mat-expansion-panel-header:hover {
   background: none !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  .mdc-line-ripple::after {
+    border-bottom-color: $cyan !important;
+  }
+
+  &.mdc-text-field--focused .mdc-floating-label--float-above {
+    color: $cyan !important;
+  }
+
+  .mdc-text-field__input {
+    caret-color: $cyan !important;
+  }
 }
