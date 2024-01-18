@@ -1,1 +1,12 @@
-<p>tasks works!</p>
+<form (submit)="createTask($event)" class="create-task">
+  <div>
+    <mat-form-field controlErrorContainer>
+      <mat-label>Digite o nome da nova tarefa</mat-label>
+      <input matInput [formControl]="createTaskControl" placeholder="Ex. Ler" />
+    </mat-form-field>
+  </div>
+
+  <button type="submit" mat-raised-button [disabled]="!createTaskControl.valid">
+    &#43;
+  </button>
+</form>

@@ -1,0 +1,40 @@
+@import "../../../../scss/variables";
+@import "../../../../scss/mixins";
+
+:host {
+  display: block;
+  margin-top: 2rem;
+  @include flex-center();
+  flex-direction: column;
+
+  & > * {
+    width: 85%;
+    box-shadow: 0 0 5px 1px #00000060;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+
+  .create-task {
+    @include flex-center(center, space-between);
+
+    div {
+      width: 85%;
+
+      mat-form-field {
+        width: 100%;
+      }
+    }
+
+    button {
+      width: 10%;
+      height: 56px;
+      padding: 1rem 0;
+      font-size: 18px;
+
+      &:not([disabled]) {
+        background-color: $cyan;
+        color: white;
+      }
+    }
+  }
+}
