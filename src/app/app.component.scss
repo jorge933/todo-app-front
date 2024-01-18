@@ -1,8 +1,8 @@
-@import "./scss/varibles";
+@import "./scss/variables";
 
 header {
   text-align: center;
-  background: $blue;
+  background: $cyan;
   color: white;
   line-height: 0;
   display: flex;
@@ -10,6 +10,10 @@ header {
   justify-content: space-between;
   padding: 10px 2rem;
   cursor: default;
+
+  h1 {
+    font-size: 25px;
+  }
 
   div {
     display: flex;
