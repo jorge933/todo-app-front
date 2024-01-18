@@ -3,10 +3,10 @@ import { Params } from '@angular/router';
 import { SuccessResponse } from './base.service.interface';
 
 export class BaseService {
-  constructor(public readonly baseApi: string, public http: HttpClient) {}
+  constructor(private readonly baseApi: string, private http: HttpClient) {}
 
   get<T>(path: string, params?: Params) {
-    let httpParams: HttpParams = new HttpParams({ fromObject: params });
+    const httpParams: HttpParams = new HttpParams({ fromObject: params });
 
     return this.http.get<SuccessResponse<T>>(`${this.baseApi}/${path}`, {
       params: httpParams,
