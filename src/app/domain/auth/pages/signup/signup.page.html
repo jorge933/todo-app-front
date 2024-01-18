@@ -29,7 +29,7 @@ httpErrorTypeService.errors(); track $index) {
       formControlName="password"
       [type]="inputValueHide ? 'password' : 'text'"
     />
-    <button (click)="toggleInputsValueVisibility($event)">
+    <button (click)="toggleInputsValueVisibility($event)" type="button">
       <span class="material-symbols-outlined">
         {{ inputValueHide ? 'visibility' : 'visibility_off' }}
       </span>
